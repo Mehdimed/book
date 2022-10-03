@@ -22,6 +22,15 @@ export default function Book() {
                 setCurrentPages([currentPages[0]+2, currentPages[1]+2]);
               }
     }
+
+    function validRange(x, y, z) {
+            if((x[0] >= y && x[0] <= z) || (x[1] >= y && x[1] <= z)){
+                return true;
+            }
+            else{
+                return false;
+            }
+    }
     
   return (
     <div className="book">
@@ -33,7 +42,7 @@ export default function Book() {
                 id={`page-${page}`}
                 className="page"
                 style={{
-                    zIndex: currentPages.includes(page) ? 55 : 0,
+                    zIndex: currentPages.includes(page) ? 55 : validRange(currentPages, page-2, page +2) ? 10 : 0,
                     pointerEvents: currentPages.includes(page) ? 'all': 'none'
                 }}
                 onClick={turnPage}
