@@ -1,4 +1,14 @@
-
+img {
+    width: 48vw;
+    border-radius: 4px;
+    transition: filter 0.5s;
+    filter: blur(20px);
+}
+.imgcontainer{
+    overflow: hidden;
+    height: 36vw;
+    border-radius: 4px;
+}
 
 .book {
     transition: opacity 0.4s 0.2s;
@@ -10,8 +20,8 @@
     color: #000000;
   }
   .page {
-    width: 30vw;
-    height: 44vw;
+    width: 48vw;
+    height: 36vw;
     background-color: #111111;
     float: left;
     margin-bottom: 0.5em;
@@ -22,11 +32,11 @@
     clear: both;
   }
   .book {
-    perspective: 250vw;
+    perspective: 245vw;
   }
   .book .pages {
-    width: 60vw;
-    height: 44vw;
+    width: 96vw;
+    height: 36vw;
     position: relative;
     transform-style: preserve-3d;
     backface-visibility: hidden;
@@ -39,8 +49,8 @@
     margin: 0;
     position: absolute;
     top: 0;
-    width: 30vw;
-    height: 44vw;
+    width: 48vw;
+    height: 36vw;
     transform-origin: 0 0;
     transition: transform 1.4s;
     backface-visibility: hidden;

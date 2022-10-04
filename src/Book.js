@@ -4,6 +4,8 @@ import './Book.css';
 export default function Book() {
 
     const [currentPages, setCurrentPages] = useState([-1,0]);
+    let debluring = false;
+    let timer;
 
     const book = [...Array(56).keys()];
     
@@ -31,6 +33,13 @@ export default function Book() {
                 return false;
             }
     }
+
+    const deblur = (e) => {
+        // find the first img child of the target
+        // delete the filter property css
+        const img = e.target.querySelector('img');
+        img.style.filter = 'none';
+    }
     
   return (
     <div className="book">
@@ -45,8 +54,25 @@ export default function Book() {
                     zIndex: currentPages.includes(page) ? 55 : validRange(currentPages, page-2, page +2) ? 10 : 0,
                     pointerEvents: currentPages.includes(page) ? 'all': 'none'
                 }}
-                onClick={turnPage}
-                >{page}</div>
+                // onClick={turnPage}
+                onMouseDown={(e) => {
+                    debluring = true;
+                    timer = setTimeout(() => {
+                        deblur(e);
+                        debluring = false;
+                    }, 1000);
+                }}
+                onMouseUp={(e) => {
+                    if(debluring){
+                        turnPage(e);
+                    }
+                    clearTimeout(timer);
+                }}
+                >
+                    <div className="imgcontainer">
+                        <img src={`/tunic/${page}.png`} alt={`page-${page}`}/>
+                    </div>
+                </div>
             )
         })}
       </div>
