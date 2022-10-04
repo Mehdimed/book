@@ -34,10 +34,17 @@ export default function Book() {
             }
     }
 
-    const deblur = (e) => {
+    const deblurOrTranslate = (e) => {
         // find the first img child of the target
         // delete the filter property css
         const img = e.target.querySelector('img');
+        if(img.style.filter === 'none'){
+            const pageNumber = e.target.id.split('-')[1];
+            // recupere l'url 
+            const currentBaseUrl = window.location.href;
+            img.src = `${currentBaseUrl}/tunic_translated_jpg/${pageNumber}.jpg`;
+            // img.src = `${currentBaseUrl}/tunic_translated/${pageNumber}.png`;
+        }
         img.style.filter = 'none';
     }
     
@@ -54,15 +61,34 @@ export default function Book() {
                     zIndex: currentPages.includes(page) ? 55 : validRange(currentPages, page-2, page +2) ? 10 : 0,
                     pointerEvents: currentPages.includes(page) ? 'all': 'none'
                 }}
-                // onClick={turnPage}
+                
                 onMouseDown={(e) => {
+                    e.preventDefault();
                     debluring = true;
                     timer = setTimeout(() => {
-                        deblur(e);
+                        deblurOrTranslate(e);
                         debluring = false;
                     }, 1000);
+
+                }}
+                onTouchStart={(e) => {
+                    e.preventDefault();
+                    debluring = true;
+                    timer = setTimeout(() => {
+                        deblurOrTranslate(e);
+                        debluring = false;
+                    }, 1000);
+
                 }}
                 onMouseUp={(e) => {
+                    e.preventDefault();
+                    if(debluring){
+                        turnPage(e);
+                    }
+                    clearTimeout(timer);
+                }}
+                onTouchEnd={(e) => {
+                    e.preventDefault();
                     if(debluring){
                         turnPage(e);
                     }
@@ -70,7 +96,8 @@ export default function Book() {
                 }}
                 >
                     <div className="imgcontainer">
-                        <img src={`/tunic/${page}.png`} alt={`page-${page}`}/>
+                        <img src={`/tunic_jpg/${page}.jpg`} alt={`page-${page}`}/>
+                        {/* <img src={`/tunic/${page}.png`} alt={`page-${page}`}/> */}
                     </div>
                 </div>
             )
