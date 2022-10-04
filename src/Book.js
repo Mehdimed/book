@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import {  useState } from 'react';
 import './Book.css';
 
-export default function Book() {
+export default function Book({ isAllVisible }) {
 
     const [currentPages, setCurrentPages] = useState([-1,0]);
     let debluring = false;
@@ -43,18 +43,36 @@ export default function Book() {
         // find the first img child of the target
         // delete the filter property css
         const img = e.target.querySelector('img');
+        const pageNumber = parseInt(e.target.id.split('-')[1]);
         if(img.style.filter === 'none'){
-            const pageNumber = e.target.id.split('-')[1];
             // recupere l'url 
             const currentBaseUrl = window.location.href;
+
+            // if(pageNumber % 2 === 0){
+            //     const nextImg = e.target.nextElementSibling.querySelector('img');
+            //     nextImg.src = `${currentBaseUrl}/tunic_translated_jpg/${pageNumber+1}.jpg`;
+            // } else {
+            //     const prevImg = e.target.previousElementSibling.querySelector('img');
+            //     prevImg.src = `${currentBaseUrl}/tunic_translated_jpg/${pageNumber-1}.jpg`;
+            // }
+
             img.src = `${currentBaseUrl}/tunic_translated_jpg/${pageNumber}.jpg`;
             // img.src = `${currentBaseUrl}/tunic_translated/${pageNumber}.png`;
+        } else {
+            if(pageNumber % 2 === 0){
+                const nextImg = e.target.nextElementSibling.querySelector('img');
+                nextImg.style.filter = 'none';
+            } else {
+                const prevImg = e.target.previousElementSibling.querySelector('img');
+                prevImg.style.filter = 'none';
+            }
+            img.style.filter = 'none';
         }
-        img.style.filter = 'none';
     }
+
     
   return (
-    <div className="book">
+    <div id="book" className={`book ${(isAllVisible ? 'unblur' : null)}`}>
       <div id="pages" className="pages">
         {book.map((page, index) => {
             return(
