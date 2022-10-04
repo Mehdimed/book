@@ -52,7 +52,7 @@ img {
     width: 48vw;
     height: 36vw;
     transform-origin: 0 0;
-    transition: transform 1.4s;
+    transition: transform 0.2s;
     backface-visibility: hidden;
     transform-style: preserve-3d;
     cursor: pointer;

@@ -8,6 +8,7 @@ export default function Book() {
     let timer;
 
     const book = [...Array(56).keys()];
+    const audios = [new Audio('/tunic_sound/turn_page1.wav'), new Audio('/tunic_sound/turn_page2.wav'), new Audio('/tunic_sound/turn_page3.wav')];
     
     const turnPage = (e) => {
         const pageNum = parseInt(e.target.id.split('-')[1])+1;
@@ -23,6 +24,10 @@ export default function Book() {
                 e.target.nextElementSibling.classList.add('flipped');
                 setCurrentPages([currentPages[0]+2, currentPages[1]+2]);
               }
+
+        // play sound
+        let random = Math.floor(Math.random() * 3);
+        audios[random].play();
     }
 
     function validRange(x, y, z) {
