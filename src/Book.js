@@ -2,7 +2,7 @@ import {  useState } from 'react';
 import './Book.css';
 import Glass from './Glass';
 
-export default function Book() {
+export default function Book({ isMagic }) {
 
     const [currentPages, setCurrentPages] = useState([-1,0]);
     let debluring = false;
@@ -116,7 +116,7 @@ export default function Book() {
                 }}
                 >
                     <div className="imgcontainer">
-                        { currentPages.includes(page) && <Glass page={page} zoom={2}/> }
+                        { currentPages.includes(page) && <Glass page={page} zoom={2} isMagic={isMagic}/> }
                         { validRange(currentPages, page-2, page +2) && <img id={`image-${page}`} src={`/tunic_jpg/${page}.jpg`} alt={`page-${page}`}/>}
                         {/* <img src={`/tunic/${page}.png`} alt={`page-${page}`}/> */}
                     </div>

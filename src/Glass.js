@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 import './Glass.css';
 
-export default function Glass({ page, zoom }) {
+export default function Glass({ page, zoom, isMagic }) {
 
     useEffect(() => {
-    const currentPage = document.getElementById(`page-${page}`) || document.getElementById(`page-${page-0}`);
-    const img = document.getElementById(`image-${page}`) || document.getElementById(`image-${page-0}`);
-    const glass = document.getElementById(`glass-${page}`) || document.getElementById(`glass-${page-0}`);
-    glass.style.backgroundImage = `url(${img.src})`;
+    const currentPage = document.getElementById(`page-${page}`);
+    const img = document.getElementById(`image-${page}`);
+    const glass = document.getElementById(`glass-${page}`);
+    const newSrc = `${window.location.href}tunic_translated_jpg/${page}.jpg`;
+    isMagic === true ? glass.style.backgroundImage = `url(${newSrc})` : glass.style.backgroundImage = `url(${img.src})`;
     glass.style.backgroundRepeat = "no-repeat";
     glass.style.backgroundSize = `${img.width * zoom}px ${img.height * zoom}px`;
     const bw = 3;
@@ -16,6 +17,7 @@ export default function Glass({ page, zoom }) {
     glass.addEventListener("mousemove", moveMagnifier);
     img.addEventListener("mousemove", moveMagnifier);
     currentPage.addEventListener("mousemove", moveMagnifier);
+    console.log(glass.style.backgroundImage)
     
 
     function moveMagnifier(e) {
@@ -57,8 +59,8 @@ export default function Glass({ page, zoom }) {
         y = y - window.pageYOffset;
         return {x : x, y : y};
       }
-    })
+    }, [page, zoom, isMagic]);
   return (
-    <div id={`glass-${page}`} className="img-magnifier-glass"></div>
+    <div id={`glass-${page}`} className={`img-magnifier-glass ${isMagic ? 'magic' : null}`}></div>
   )
 }
