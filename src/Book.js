@@ -1,7 +1,8 @@
 import {  useState } from 'react';
 import './Book.css';
+import Glass from './Glass';
 
-export default function Book({ isAllVisible }) {
+export default function Book() {
 
     const [currentPages, setCurrentPages] = useState([-1,0]);
     let debluring = false;
@@ -44,35 +45,30 @@ export default function Book({ isAllVisible }) {
         // delete the filter property css
         const img = e.target.querySelector('img');
         const pageNumber = parseInt(e.target.id.split('-')[1]);
-        if(img.style.filter === 'none'){
-            // recupere l'url 
-            const currentBaseUrl = window.location.href;
+        if(!img.classList.contains('blurred')){
+            const currentBaseUrl = window.location.href;    
 
-            // if(pageNumber % 2 === 0){
-            //     const nextImg = e.target.nextElementSibling.querySelector('img');
-            //     nextImg.src = `${currentBaseUrl}/tunic_translated_jpg/${pageNumber+1}.jpg`;
-            // } else {
-            //     const prevImg = e.target.previousElementSibling.querySelector('img');
-            //     prevImg.src = `${currentBaseUrl}/tunic_translated_jpg/${pageNumber-1}.jpg`;
-            // }
+            const glass = e.target.querySelector('.img-magnifier-glass');
+            glass.style.backgroundImage = `url(${currentBaseUrl}/tunic_translated_jpg/${pageNumber}.jpg)`;
 
             img.src = `${currentBaseUrl}/tunic_translated_jpg/${pageNumber}.jpg`;
+
             // img.src = `${currentBaseUrl}/tunic_translated/${pageNumber}.png`;
         } else {
             if(pageNumber % 2 === 0){
                 const nextImg = e.target.nextElementSibling.querySelector('img');
-                nextImg.style.filter = 'none';
+                nextImg.classList.remove('blurred');
             } else {
                 const prevImg = e.target.previousElementSibling.querySelector('img');
-                prevImg.style.filter = 'none';
+                prevImg.classList.remove('blurred');
             }
-            img.style.filter = 'none';
+            img.classList.remove('blurred');
         }
     }
 
     
   return (
-    <div id="book" className={`book ${(isAllVisible ? 'unblur' : null)}`}>
+    <div id="book" className="book">
       <div id="pages" className="pages">
         {book.map((page, index) => {
             return(
@@ -119,7 +115,8 @@ export default function Book({ isAllVisible }) {
                 }}
                 >
                     <div className="imgcontainer">
-                        <img src={`/tunic_jpg/${page}.jpg`} alt={`page-${page}`}/>
+                        { currentPages.includes(page) && <Glass page={page} zoom={2}/> }
+                        { validRange(currentPages, page-2, page +2) && <img id={`image-${page}`} src={`/tunic_jpg/${page}.jpg`} alt={`page-${page}`}/>}
                         {/* <img src={`/tunic/${page}.png`} alt={`page-${page}`}/> */}
                     </div>
                 </div>
