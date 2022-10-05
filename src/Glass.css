@@ -6,6 +6,5 @@
     /*Set the size of the magnifier glass:*/
     width: 300px;
     height: 180px;
-    /* z-index: 56; */
     visibility: hidden;
   }

@@ -10,6 +10,7 @@ export default function Book() {
 
     const book = [...Array(56).keys()];
     const audios = [new Audio('/tunic_sound/turn_page1.wav'), new Audio('/tunic_sound/turn_page2.wav'), new Audio('/tunic_sound/turn_page3.wav')];
+    audios.forEach(audio => audio.preload = 'auto');
     
     const turnPage = (e) => {
         const pageNum = parseInt(e.target.id.split('-')[1])+1;
