@@ -1,12 +1,16 @@
-import {  useState } from 'react';
+import {  useEffect, useState } from 'react';
 import './Book.css';
 import Glass from './Glass';
 
+let loaded = false;
 export default function Book({ isMagic }) {
 
     const [currentPages, setCurrentPages] = useState([-1,0]);
     let debluring = false;
     let timer;
+    useEffect(() => {
+            loaded = true;
+    }, []);
 
     const book = [...Array(56).keys()];
     const audios = [new Audio('/tunic_sound/turn_page1.wav'), new Audio('/tunic_sound/turn_page2.wav'), new Audio('/tunic_sound/turn_page3.wav')];
@@ -116,7 +120,7 @@ export default function Book({ isMagic }) {
                 }}
                 >
                     <div className="imgcontainer">
-                        { currentPages.includes(page) && <Glass page={page} zoom={2} isMagic={isMagic}/> }
+                        { (currentPages.includes(page) && loaded) && <Glass page={page} zoom={2} isMagic={isMagic}/> }
                         { validRange(currentPages, page-2, page +2) && <img id={`image-${page}`} src={`/tunic_jpg/${page}.jpg`} alt={`page-${page}`}/>}
                         {/* <img src={`/tunic/${page}.png`} alt={`page-${page}`}/> */}
                     </div>
