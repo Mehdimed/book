@@ -11,3 +11,21 @@
   width: auto;
   filter: drop-shadow(0px 0px 50px rgba(255, 215, 0, 0.5));
 }
+
+.renardPensantSansTete{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 150px;
+  width: auto;
+  filter: drop-shadow(0px 0px 50px rgba(255, 215, 0, 0.5));
+}
+
+.tetePensante {
+  position: fixed;
+  bottom: 117px;
+  left: 334px;
+  height: 85px;
+  width: auto;
+  /* transform: rotate(-5deg); can rotate until -10deg */
+}
