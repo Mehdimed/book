@@ -18,6 +18,9 @@ export default function Book({ isMagic }) {
     
     const turnPage = (e) => {
         const pageNum = parseInt(e.target.id.split('-')[1])+1;
+        // play sound
+        let random = Math.floor(Math.random() * 3);
+        audios[random].play();
         if (pageNum % 2 === 0)
               {
                 e.target.classList.remove('flipped');
@@ -31,9 +34,8 @@ export default function Book({ isMagic }) {
                 setCurrentPages([currentPages[0]+2, currentPages[1]+2]);
               }
 
-        // play sound
-        let random = Math.floor(Math.random() * 3);
-        audios[random].play();
+        
+        
     }
 
     function validRange(x, y, z) {
