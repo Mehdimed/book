@@ -32,6 +32,7 @@ function App() {
   return (
     <div className="App">
       <Book isMagic={isMagic}/>
+      <img className='renardPensant' src="/renardPensant.png" alt="renard-pensant" />
     </div>
   );
 }

@@ -17,7 +17,6 @@ export default function Glass({ page, zoom, isMagic }) {
     glass.addEventListener("mousemove", moveMagnifier);
     img.addEventListener("mousemove", moveMagnifier);
     currentPage.addEventListener("mousemove", moveMagnifier);
-    console.log(glass.style.backgroundImage)
     
 
     function moveMagnifier(e) {
