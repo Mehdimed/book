@@ -83,9 +83,6 @@ export default function Book({ isMagic }) {
 
     const checkRotation = (e) => {
         const pageNum = parseInt(e.target.id.split('-')[1]);
-        // we check the position of the mouse compared to the page
-        // if page is even, we check if the mouse is on the half left of the page 
-        // if page is odd, we check if the mouse is on the half right of the page 
         if (pageNum % 2 === 0) {
             if (e.clientX > e.target.offsetLeft + e.target.offsetWidth / 2) {
                 // change the value of the :root css variable --rotate-odd
@@ -99,6 +96,15 @@ export default function Book({ isMagic }) {
             } else {
                 document.documentElement.style.setProperty('--rotate-even', 'rotateY(0deg)');
             }
+        }
+    }
+
+    const removeRotation = (e) => {
+        const pageNum = parseInt(e.target.id.split('-')[1]);
+        if (pageNum % 2 === 0) {
+            document.documentElement.style.setProperty('--rotate-odd', 'rotateY(0deg)');
+        } else {
+            document.documentElement.style.setProperty('--rotate-even', 'rotateY(0deg)');
         }
     }
     
@@ -150,6 +156,7 @@ export default function Book({ isMagic }) {
                 }}
 
                 onMouseMove={checkRotation}
+                onMouseLeave={removeRotation}
                 >
                     <div className="imgcontainer">
                         { (currentPages.includes(page) && loaded) && <Glass page={page} zoom={2} isMagic={isMagic}/> }
