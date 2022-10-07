@@ -17,6 +17,14 @@ export default function Book({ isMagic }) {
     audios.forEach(audio => audio.preload = 'auto');
     
     const turnPage = (e) => {
+        // check if the element contains the class rotateEven or rotateOdd and remove ti
+        if (e.target.classList.contains('rotateEven')) {
+            e.target.classList.remove('rotateEven');
+        } else if (e.target.classList.contains('rotateOdd')) {
+            e.target.classList.remove('rotateOdd');
+        }
+
+        
         const pageNum = parseInt(e.target.id.split('-')[1])+1;
         // play sound
         let random = Math.floor(Math.random() * 3);
@@ -73,6 +81,26 @@ export default function Book({ isMagic }) {
         }
     }
 
+    const checkRotation = (e) => {
+        const pageNum = parseInt(e.target.id.split('-')[1]);
+        // we check the position of the mouse compared to the page
+        // if page is even, we check if the mouse is on the half left of the page 
+        // if page is odd, we check if the mouse is on the half right of the page 
+        if (pageNum % 2 === 0) {
+            if (e.clientX > e.target.offsetLeft + e.target.offsetWidth / 2) {
+                // change the value of the :root css variable --rotate-odd
+                document.documentElement.style.setProperty('--rotate-odd', 'rotateY(-15deg)');
+            } else {
+                document.documentElement.style.setProperty('--rotate-odd', 'rotateY(0deg)');
+            }
+        } else {
+            if (e.clientX < e.target.offsetLeft + e.target.offsetWidth / 2) {
+                document.documentElement.style.setProperty('--rotate-even', 'rotateY(15deg)');
+            } else {
+                document.documentElement.style.setProperty('--rotate-even', 'rotateY(0deg)');
+            }
+        }
+    }
     
   return (
     <div id="book" className="book">
@@ -120,6 +148,8 @@ export default function Book({ isMagic }) {
                     }
                     clearTimeout(timer);
                 }}
+
+                onMouseMove={checkRotation}
                 >
                     <div className="imgcontainer">
                         { (currentPages.includes(page) && loaded) && <Glass page={page} zoom={2} isMagic={isMagic}/> }
