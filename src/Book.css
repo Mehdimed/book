@@ -60,7 +60,7 @@ img {
     transition: transform 0.2s;
     backface-visibility: hidden;
     transform-style: preserve-3d;
-    cursor: pointer;
+    cursor: none;
     user-select: none;
     background-color: #f0f0f0;
   }
