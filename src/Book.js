@@ -9,7 +9,7 @@ export default function Book({ isMagic }) {
     let debluring = false;
     let timer;
     useEffect(() => {
-            loaded = true;
+            loaded = true; // verify
     }, []);
 
     const book = [...Array(56).keys()];
